@@ -1,0 +1,580 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: black;
+    /* background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%); */
+}
+
+
+#searchbar {
+    position: relative;
+    background: #ffffffac;
+    border: 5px solid black;
+    box-shadow:1px 1px 8px 4px #3b2a459f;
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding: 5px;
+    height: 70px;
+    width: 100%;
+    font-size: 35px;
+    top: -5%;
+    font-family: 'Montserrat', sans-serif;
+    transition-duration: 0.5s;
+}
+
+#searchbar:focus {
+    outline: none;
+}
+
+#search {
+    display: block;
+    margin-top: 100px;
+    padding-top: 40px;
+    padding-bottom: 100px;
+    background:white;
+    min-height: 340px;
+    width: 600px;
+    background: rgba(0,0,0,0);
+    margin: 0 auto;
+    transition-duration: 0.6s;
+}
+
+h1 {
+    position: relative;
+    opacity: 0;
+    color: white;
+    font-size: 49px;
+    margin-bottom: 0px;
+    font-family: 'Montserrat', sans-serif;
+    animation: fallIn 2s forwards;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.269);
+    transform: translateY(-20px);
+}
+
+@keyframes fallIn {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0px);}
+}
+
+h2 {
+    position: relative;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    left: 20px;
+    letter-spacing: .1em;
+    font-size: 42px;
+    font-weight: 200;
+    font-family: 'Montserrat', sans-serif;
+    transition-duration: 1s;
+    transform: translate(30px, -20px) rotate(90deg);
+    transform-origin: top left;
+}
+
+
+#header {
+    position: relative;
+    display: flex;
+    background-color: rgba(245, 245, 245, 0);
+    border-radius: 5px;
+    display: block;
+    height: 80px;
+    width: 101%;
+    left: -5px;
+    top: -10px;
+}
+
+#results {
+    background: rgba(255, 255, 255, 0.486);
+    overflow-x: hidden;
+    position: relative;
+    display: block;
+    left: 4%;
+    width: 90%;
+    padding: 20px;
+    padding-top: 0px;
+    border: 0px solid white;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    margin-left: -10px;
+    padding-right: 10px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    padding: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+th {
+    background-color: #b5b4b433;
+    height: 40px;
+    font-size: 17px;
+}
+
+td {
+    width: 10%;
+    height: 28px;
+    padding: 14px;
+}
+
+
+
+.filter {
+    position: relative;
+    margin-top: 20px;
+    display: block;
+    background: black;
+}
+
+select {
+    margin-top: 20px;
+    width: 30%;
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgba(255, 255, 255, 0.623);
+    padding: .6em 1.4em .5em .8em;
+    appearance: none;
+    -webkit-appearance: none;
+    height: 35px;
+}
+
+span {
+    color:white;
+}
+
+select:focus {
+    box-shadow:1px 1px -8px 4px #888888;
+    outline: none;
+}
+
+.positive{
+    background-color: rgb(115, 222, 145);
+}
+
+.positive:hover {
+    background-color: rgb(70, 222, 113);
+}
+
+.negative{
+    background-color: rgba(247, 129, 129, 0.824);
+}
+
+.negative:hover {
+    background-color: rgba(237, 89, 89, 0.824);
+}
+
+#resultstable tr:not(.positive):not(.negative):hover {
+    background-color: #f5f5f5b0;
+}
+
+button, #tooltip{
+    border: 0px solid black;
+    border-radius: 3.5px;
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgba(255, 255, 255, 0.776);
+    height: 35px;
+    width: 18%;
+    text-transform: uppercase;
+    transition-timing-function:cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background-image: linear-gradient(to right, #171717 50%, transparent 50%);
+    background-position: 100% 0%;
+    background-size: 200% 100%;
+    transition: 0.5s;
+    }
+
+button:hover {
+    color: #f3f3f3;
+    background-position: 0% 50%;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.25);
+}
+
+button:focus {
+    outline: none;
+}
+
+.visibility {
+    display: none;
+}
+
+
+#calculator{
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    position: fixed;
+    z-index: 20;
+    margin-left: 20%;
+    min-height: 600px;
+    width: 60%;
+    padding: 0px;
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+    font-size: 22px;
+    text-align: center;
+    box-shadow: 6px 6px 12px rgba(0,0,0,0.25);
+}
+
+#calctoggle {
+    width: 150px;
+    margin-top: 20px;
+    margin-right: 50px;
+    font-size: 14px;
+    float: right;
+}
+
+#helptoggle {
+    width: 150px;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 14px;
+    float: right;
+}
+
+.activebutton {
+    border: 1px solid black;
+    background-color: black;
+    color:white;
+}
+
+#helpbox {
+    border: 0px solid black;
+    border-radius: 3.5px;
+    position: fixed;
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgba(255, 255, 255, 0.872);
+    width: 40%;
+    right: 50px;
+    padding: 10px;
+    line-height: 1.5em;
+    height: 600px;
+    overflow-y: scroll;
+    z-index: 20;
+}
+
+#shield {
+    z-index: 19;
+    position: fixed;
+    background-color: rgba(74, 71, 71, 0.603);
+    margin-left: -10px;
+    margin-top: -10px;
+    width: 105%;
+    height:105%;
+}
+
+#calcexplainer {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: space-around;
+    border-radius: 10px 0px 0px 10px;
+    width: 35%;
+    background-color: blue;
+    padding: 30px;
+    position: relative;
+    background: rgb(186,50,196);
+    background: linear-gradient(132deg, rgba(186,50,196,1) 0%, rgba(9,9,121,1) 100%, rgba(0,212,255,1) 100%);
+}
+
+#calcinputgroup {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    position: relative;
+    background-color: white;
+    padding: 50px;
+    width: 65%;
+    text-align: left;
+}
+
+#calculatortable {
+    font-size: 18px;
+}
+
+#calcexplainer span {
+    font-size: 35px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: left;
+    transition: .5s ease-in-out;
+    text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.411);
+}
+
+#calcexplainer span:hover {
+    color: black;
+    transform: translateY(-2px);
+    text-shadow: 4px 6px 10px rgba(0,0,0,0.44);
+}
+
+#calcexplainer p {
+    text-align: left;
+}
+
+#calcinputgroup button {
+    width: 200px;
+    height: 60px;
+    font-size: 21px;
+    border: 1px solid black;
+}
+
+ol {
+    text-align: left;
+}
+
+h3 span {
+    font-weight: 100;
+    color: black;
+}
+
+
+.calcinput {
+    margin-right: 0px;
+    font-size: 16px;
+    padding: 7px;
+    border-radius: 7px;
+    border: 0px dotted rgb(201, 201, 201);
+    height: 40px;
+    font-size: 22px;
+    background-color: rgb(240, 240, 240);
+    width: 200px;
+    transition: 0.2s cubic-bezier(1,0.2,.5,1);
+}
+
+.calcinput:focus {
+    outline: none;
+    background-color: #b8b8b8;
+}
+
+.calclabel {
+    width: 40%;
+    display: inline-block;
+}
+
+img {
+    display: none;
+}
+
+#dashboard {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    min-height: 650px;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.651);
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.25);
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.graph {
+    background-color: rgba(0,0,0,0);
+    height: 550px;
+    width: 700px;
+}
+
+#dashtitle {
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
+#tooltip {
+    position: fixed;
+    text-transform: none;
+    font-size: 12px;
+    padding: 2px;
+    text-align: center;
+    height: auto;
+}
+
+#pageselector button {
+    width: 50px;
+    background-color: rgba(255, 255, 255, 0.44);
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#pageselector select {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.44);
+    margin-right: 10px;
+}
+
+#pageselector button:hover {
+    background-position: 100% 0%;
+    background-size: 200% 100%;
+    box-shadow: none;
+    border: 1px solid black;
+    color: black;
+}
+
+.disclaimer {
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.808);
+}
+
+.disclaimer button {
+    margin-left: 40%;
+    width: 20%;
+    height: 50px;
+    font-size: 1.3rem;
+    border: 3px solid white;
+}
+
+.disclaimer-text {
+    color: white;
+    margin-top: 100px;
+    margin-left: 30%;
+    width: 40%;
+    line-height: 2em;
+    font-size: 24px;
+}
+
+
+@media (max-width: 800px){
+    button{
+        height: 100px;
+        font-size: 40px;
+        width: 350px;
+    }
+
+    #searchbar {
+        height: 150px;
+        font-size: 50px;
+    }
+
+    #search {
+        width: 90%;
+    }
+
+    #filter {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #filter select {
+        width: 100%;
+        height: 130px;
+        font-size: 35px;
+    }
+
+    #filter span {
+        font-size: 35px;
+    }
+
+    table, th {
+        font-size: 28px;
+    }
+
+    select {
+        margin-top: 5px;
+        font-size: 20px;
+        height: 55px;
+    }
+
+    #dashboard {
+        display: none;
+    }
+
+    h1 {
+        font-size: 100px;
+    }
+
+    h2 {
+        display: none;
+    }
+
+    #calctoggle {
+        font-size: 25px;
+        width: 300px;
+    }
+
+    #calculator {
+        flex-direction: column;
+        width: 80%;
+        margin-left: 10%;
+        height: 900px;
+    }
+
+    #calcexplainer {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 10px 10px 0px 0px;
+        height: 80px;
+        font-size: 30px;
+    }
+
+    #calcexplainer span {
+        font-size: 90px;
+        margin-top: -60px;
+    }
+
+    #calcinputgroup {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: scroll;
+    }
+
+    #calcexplainer p, #calcexplainer ol {
+        display: none;
+    }
+
+    #tooltip {
+        width: 300px;
+        font-size: 17px;
+    }
+
+    #calculatortable {
+        font-size: 35px;
+    }
+
+    #calcinputgroup button {
+        height: 200px;
+        font-size: 30px;
+        padding: 10px;
+    }
+
+    #results {
+        overflow: scroll;
+        height: 1100px;
+        padding: 0px;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: rgba(128, 128, 128, 0.541);
+    }
+
+    #resultstable {
+        table-layout: fixed;
+    }
+
+    #resultstable th, #resultstable td {
+        width: 300px;
+    }
+
+}

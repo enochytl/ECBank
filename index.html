@@ -1,0 +1,238 @@
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900&display=swap');
+        </style>
+    <link rel="shortcut icon" type = 'image/png' href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src = 'https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script src = 'paginator.js'></script>
+
+    <title>
+        EC Casebank 
+    </title>
+</head>
+
+<body>
+
+<div class="disclaimer">
+    <div class="disclaimer-text">
+        <strong>Disclaimer</strong>: While we make every effort to ensure the accuracy of information provided in the EC Casebank,
+         we do not take responsibility for any inaccuracies or errors. Nothing on this website should be taken as 
+         legal advice, and we encourage all users to verify the accuracy of important information on their own account.
+    </div><br/><br/>
+    <button onclick = 'closeDisclaimer()'>Accept</button>
+</div>
+
+<div id="shield" onclick = 'calculator()' style = 'display: none'></div>
+
+<div id="header">
+    <h2>EC CASEBANK</h2>
+    <button onclick="calculator()" id = 'calctoggle'>Estimator  <i class="fa fa-calculator" aria-hidden="true"></i></button>
+    <button onclick="helpbox()" id = 'helptoggle'>Help </button>
+</div>
+
+<div id="helpbox" class = 'visibility'>
+    EC Bank is an online case repository. By keyword-matching according to your command in our database, the engine provides you information of relevant Employment Compensation (EC) and Personal Injury (PI) cases, which are neatly presented in table form.
+    <br/><hr>
+    <strong>To find "Percentage Loss of Earning Capacity" of similar cases:</strong>
+    <br/><br/>
+    <ol>
+        <li>Type your injury (e.g. fracture or sprain) in the search bar.</li>
+        <li>Limit the search results by various criteria, including injured body part, salary, occupation and year of case.</li>
+        <li>"Percentage Loss of Earning Capacity" and other information of relevant cases can be viewed from the table. Graphs are also provided at the bottom to illustrate the trend of compensation in recent years.</li>
+        <li>Click on the sentiment button to colour the search results based on judges' perception towards the credibility of the injured worker. Green means positive, red means negative and grey means neutral.</li>
+    </ol>
+    <br/>
+    <strong>To calculate the expected employee compensation:</strong>
+    <ol>
+        <li>Click on the calculator button at the top-right corner</li>
+        <li>Input the data as required</li>
+        <li>A predicted figure of compensation is calculated according to the statutory formula.</li>
+    </ol>
+</div>
+
+<div id = 'calculator' style = "display: none">
+    <div id="calcexplainer">
+        <span>ESTIMATOR</span>
+        <p>This is the employee compensation estimator. Compensation is made up of three components</p>
+        <ol>
+            <li>Loss of Earning Capacity</li>
+            <li>Periodical Payments</li>
+            <li>Medical Fees</li>
+        </ol>
+        <p>Numbers provided by this estimator should be taken as rough approximations. </p>
+    </div>
+    <div id="calcinputgroup">
+        <table id = 'calculatortable'>
+            <tr>
+                <td>Monthly Salary (Pre-Accident):</td>
+                <td><input type="text" class = 'calcinput'></input> $</td>
+            </tr>
+            <tr>
+                <td>Age </td>
+                <td><input type="text" class = 'calcinput'></input> Years</td>
+            </tr>
+            <tr>
+                <td>Medical Leave </td>
+                <td><input type="text" class = 'calcinput'></input> Days</td>
+            </tr>
+            <tr>
+                <td>Monthly Salary (After Accident) </td>
+                <td><input type="text" class = 'calcinput'></input> $</td>
+            </tr>
+            <tr>
+                <td>Medical Fees (daily) </td>
+                <td><input type="text" class = 'calcinput'></input> $</td>
+            </tr>
+            <tr>
+                <td>% Proportionment: </td>
+                <td><input type="text" class = 'calcinput'></input> %</td>
+            </tr>
+        </table><br><br>
+        <button onclick="calculate()">Estimate</button>
+        <h3 id = 'awardamount'></h3><br>
+    </div>
+    
+    
+</div>
+    
+<div id="tooltip" style = 'display: none'>
+    Click on the sentiment button to highlight the cases based on the judges perception towards the credibility of the injured person.
+    Green means positive, red means negative, and grey means neutral.
+</div>
+
+<div id="search">
+
+    <h1>Search Cases:</h1>
+    <input id="searchbar" type = 'text' onkeyup = "myFunction()" placeholder = "Search injury... ">
+    <br><br>
+    <div id="filter">
+
+        <span>Body Part</span>
+        <select id = 'bodypart' onChange = 'filterbodypart()'>
+            <option value="All">All</option>
+            <option value="Head">Head</option>
+            <option value="Eye">Eye</option>
+            <option value="Ear">Ear</option>
+            <option value="Nose">Nose</option>
+            <option value="Mouth">Mouth</option>
+            <option value="Neck">Neck</option>
+            <option value="Shoulder">Shoulder</option>
+            <option value="Breast">Breast</option>
+            <option value="Abdomen">Abdomen</option>
+            <option value="Upper Extremity">Upper Extremity</option>
+            <option value="Wrist">Wrist</option>
+            <option value="Hand">Hand</option>
+            <option value="Hip">Hip</option>
+            <option value="Back">Back</option>
+            <option value="Waist">Waist</option>
+            <option value="Lower Extremity">Lower Extremity</option>
+            <option value="Knee">Knee</option>
+            <option value="Foot">Foot</option>
+            <option value="Arm">Arm</option>
+            <option value="Forearm">Forearm</option>
+            <option value="Elbow">Elbow</option>
+            <option value="Buttock">Buttock</option>
+            <option value="Thigh">Thigh</option>
+            <option value="Leg">Leg</option>
+            <option value="Toe">Toe</option>
+        </select>
+
+        <span>Salary:</span>
+        <select id = 'salary' onChange = 'filtersalary()'>
+            <option value="0">All</option>
+            <option value="10000">$10,000-$20,000</option>
+            <option value="20000">$20,000-$30,000</option>
+            <option value="30000">$30,000-$40,000</option>
+            <option value="40000">$40,000-$50,000</option>
+        </select><br/>
+        <span>Year:</span>
+        <select id = 'year' onChange = 'filteryear()'>
+            <option value="0">All</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+        </select>
+        <span>Occupation:</span>
+        <select id = 'occupation' onChange = ''>
+            <option value="0">All</option>
+            <option value="10000">Construction Worker</option>
+            <option value="20000">Service Employee</option>
+            <option value="30000">Factory Worker</option>
+            <option value="40000">Carpenter</option>
+        </select><br/>
+        <!-- <span>Age:</span>
+        <select id = 'age'>
+            <option value="0">All</option>
+            <option value="0">15-30</option>
+            <option value="2019">30-45</option>
+            <option value="2018">45-60</option>
+            <option value="2017">60+</option>
+        </select><br/><br/> -->
+        <br/><br/>
+        <button onclick="highlight()" id = 'sentiment'>Sentiment</button>
+    </div>
+        
+</div>
+<br>
+<br>
+<div id="results" style = 'display: none'>
+    <table id='resultstable'>
+        <thead>
+            <tr>
+                <th onclick = 'sort(0)' class = 'fixedcol'>Citation</th>
+                <th onclick = 'sort(1)'>% Loss of Earning Capacity</th>
+                <th>Injury Location</th>
+                <th onclick = 'sort(3)'>Age at Incident</th>
+                <th>Length of Sick Leave</th>
+                <th onclick = 'sort(5)'>Date of Assessment</th>
+                <th onclick = 'sort(6)'>Monthly Salary</th>
+                <th>Sentiment</th>
+                <th onclick = 'sort(8)'>Occupation</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+        
+    </table>
+    <div id = 'pageSelector'></div>
+</div>
+
+
+<div id="dashboard" style = 'display: none'>    
+    <h1 id = 'dashtitle'>Summary Dashboard</h1><br>
+    <div class="graph" id="graph1"></div>
+    <div class="graph" id="graph2"></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBzNkFcyT-72cNJiQtEXpyOGXoSGpuesno",
+    authDomain: "ec-casebank.firebaseapp.com",
+    databaseURL: "https://ec-casebank.firebaseio.com",
+    projectId: "ec-casebank",
+    storageBucket: "ec-casebank.appspot.com",
+    messagingSenderId: "261401321656",
+    appId: "1:261401321656:web:251319cd4d1070a3e5544d",
+    measurementId: "G-JRDENWHVX9"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<script src = 'app.js'></script>
+<script src = 'graphing.js'></script>
+
+</body>
